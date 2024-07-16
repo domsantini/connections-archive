@@ -1,20 +1,13 @@
 'use client'
 import React from 'react'
-
+import useGetPuzzle from './hooks/use-get-puzzle'
 import { puzzleEx } from './data'
+import { Flow_Circular } from 'next/font/google'
 
 export default function Home() {
   const [currentGuess, setCurrentGuess] = React.useState<string[]>([])
-  const initialBoard: { content: string, position: number }[] = [];
-  const { categories } = puzzleEx
-  
-  categories.forEach(({ title, cards }) => {
-    cards.forEach(({ content, position }, index)=> {
-      initialBoard.push({ content, position })
-      initialBoard.sort((a, b) => a.position - b.position)
-    })
-  })
-    
+  const { initialBoard, answerKey } = useGetPuzzle(puzzleEx);
+      
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     const content = event.currentTarget.innerText;
     const inArray = currentGuess.includes(content);
@@ -34,7 +27,38 @@ export default function Home() {
     }
   }
   
-  console.log(currentGuess)
+  function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
+    
+    console.log('submitting')
+    
+    event.preventDefault()
+    
+    function checkAnswer(currentGuess: string[], answerKey: { title: string, answers: string[]}[]) {
+      let maxCorrect = 0;
+      
+      for (const category of answerKey) {
+        if (currentGuess.toString() === category.answers.toString()) {
+          console.log(`Correctly guessed ${category.title}`)
+          return
+        } else {
+          let currCorrect = 0;
+          
+          for (const word of currentGuess) {
+            if (category.answers.includes(word)) {
+              currCorrect++
+            } else {
+              continue
+            }
+            
+            maxCorrect = Math.max(currCorrect, maxCorrect)
+          }
+          console.log(`Close.. You got ${maxCorrect}`)
+        }
+      }
+    }
+    
+    checkAnswer(currentGuess, answerKey)
+  }
   
   return (
     <>
@@ -56,7 +80,7 @@ export default function Home() {
         </div>
         <div>
           <button className='px-4 py-2 border-2 border-solid border-neutral-300 rounded-full'>Shuffle</button>
-          <button className='px-4 py-2 border-2 border-solid border-neutral-300 rounded-full'>Submit</button>
+          <button className='px-4 py-2 border-2 border-solid border-neutral-300 rounded-full' onClick={(event) => handleSubmit(event)}>Submit</button>
         </div>
       </main>
     </>

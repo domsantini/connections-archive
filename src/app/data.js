@@ -3,27 +3,27 @@ export const puzzleEx = {
     "id": 1,
     "print_date": "2023-06-12",
     "categories": [
-    {
-    "title": "WET WEATHER",
-    "cards": [
-    {
-    "content": "HAIL",
-    "position": 9
-    },
-    {
-    "content": "RAIN",
-    "position": 11
-    },
-    {
-    "content": "SLEET",
-    "position": 12
-    },
-    {
-    "content": "SNOW",
-    "position": 0
-    }
-    ]
-    },
+        {
+            "title": "WET WEATHER",
+            "cards": [
+                {
+                    "content": "HAIL",
+                    "position": 9
+                },
+                {
+                    "content": "RAIN",
+                    "position": 11
+                },
+                {
+                    "content": "SLEET",
+                    "position": 12
+                },
+                {
+                    "content": "SNOW",
+                    "position": 0
+                }
+            ]
+        },
     {
     "title": "NBA TEAMS",
     "cards": [
