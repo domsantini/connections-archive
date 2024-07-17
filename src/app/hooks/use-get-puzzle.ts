@@ -1,3 +1,5 @@
+import { formatDate } from '../utils/utils'
+ 
 interface Card {
 	content: string,
 	position: number,
@@ -10,29 +12,32 @@ interface Category {
 
 interface PuzzleData {
 	id: number,
-	print_date: String,
+	print_date: string,
 	categories: Category[]
 }
 
-function useGetPuzzle(puzzle: PuzzleData): { initialBoard: { content: string, position: number }[], answerKey: { title: string, answers: string[] }[] } {
-    const initialBoard: { content: string, position: number }[] = [];
-    const answerKey: { title: string, answers: string[] }[] = [];
-    const { categories } = puzzle;
-    
-    categories.forEach(({ title, cards }) => {
-			const answers: string[] = [];
-			
-			cards.forEach(({ content, position }, index)=> {
-				initialBoard.push({ content, position })
-				answers.push(content)		
-			})
-			
-			answerKey.push({ title, answers })
+function useGetPuzzle(puzzle: PuzzleData): { id: number, date: string, initialBoard: string[], answerKey: { title: string, answers: string[] }[] } {
+	const initialTempBoard: { content: string, position: number }[] = [];
+	const answerKey: { title: string, answers: string[] }[] = [];
+	const { id, print_date, categories } = puzzle;
+	
+	const date: string = formatDate(print_date)
+	
+	categories.forEach(({ title, cards }) => {
+		const answers: string[] = [];
+		
+		cards.forEach(({ content, position }, index)=> {
+			initialTempBoard.push({ content, position })
+			answers.push(content)		
 		})
-    
-		initialBoard.sort((a, b) => a.position - b.position)
-    
-	return { initialBoard, answerKey }
+		
+		answerKey.push({ title, answers })
+	})
+	
+	initialTempBoard.sort((a, b) => a.position - b.position)
+	const initialBoard = initialTempBoard.map(({ content }) => content)
+	
+	return { id, date, initialBoard, answerKey }
 }
 
 export default useGetPuzzle;
