@@ -22,7 +22,7 @@ function AnswerItem({ level, title, answers }: { level: number, title: string, a
   return (
     <div 
       style={{ backgroundColor: COLORS[level as keyof typeof COLORS]}} 
-      className='col-span-full flex flex-col justify-center items-center border-2 border-solid border-neutral-300 rounded-lg'
+      className='col-span-full flex flex-col justify-center items-center rounded-lg h-16'
     >
       <p>{title}</p>
       <p><span>{answers[0]}</span>, <span>{answers[1]}</span>, <span>{answers[2]}</span>, <span>{answers[3]}</span></p>

@@ -70,7 +70,7 @@ function PuzzleBoardItem({ content, handleClick, currentGuess, puzzleBoard, ...m
       ref={buttonRef}
       key={content}
       className={
-        `flex justify-center items-center h-16 w-full border-2 border-solid border-neutral-300 rounded-lg
+        `flex justify-center items-center h-16 w-full rounded-lg
         ${currentGuess.length === 4 ? 'cursor-default' : 'hover:bg-neutral-400 active:bg-neutral-500 cursor-pointer'} 
         ${currentGuess.includes(content) ? 'bg-neutral-500 hover:cursor-pointer active:bg-neutral-500' : 'bg-neutral-200'
         }`
