@@ -39,26 +39,11 @@ export default function Navbar() {
 
 const NavItem = ({ name, href }: NavItem) => {
   
-  const [currentPage, setCurrentPage] = React.useState<string>('')
-  const [selected, setSelected] = React.useState<boolean>(false)
-  
-  React.useEffect(() => {
-    const pathname = window.location.pathname
-    setCurrentPage(pathname)
-    
-    if (href.includes(href)) {
-      setSelected(true)
-    }
-  }, [window.location.pathname])
-  
-  console.log({selected})
-  
   return(  
     <li >
       <Link href={href}>
         <h2 className='text-[#0B1215] text-lg'>{name}</h2>  
       </Link>
-      
     </li>  
   )
 }
