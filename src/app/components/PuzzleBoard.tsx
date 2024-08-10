@@ -77,6 +77,7 @@ function PuzzleBoardItem({ content, handleClick, currentGuess, puzzleBoard, ...m
       } 
       onClick={(event) => handleClick(event)}
       layout
+      
     >
       <p 
         ref={wordRef}
