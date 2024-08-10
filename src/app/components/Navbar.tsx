@@ -19,7 +19,7 @@ const navitems: NavItem[] = [
 
 export default function Navbar() {
   return (
-    <nav className='flex justify-between w-full px-4 py-4  bg-neutral-500'>
+    <nav className='sticky top-0 left-0 flex justify-between w-full px-4 py-4  bg-neutral-500'>
       <ul className='flex gap-4'>
         {navitems.map(({ name, href }, index) => (
           <NavItem 

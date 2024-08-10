@@ -1,19 +1,29 @@
 import React from 'react'
 
-function AnswerBoard({ correctAnswers }: {correctAnswers: { title: string, answers: string[]}[]}) {
+const COLORS = {
+  0: '#F7DC6F',
+  1: '#82E0AA',
+  2: '#85C1E9',
+  3: '#BB8FCE',
+} as const
+
+function AnswerBoard({ correctAnswers }: {correctAnswers: { level:number, title: string, answers: string[]}[]}) {
   
   return (
-      <div className=' grid grid-cols-4 gap-2 border-2 border-solid border-orange-300'>
-        {correctAnswers.map(({ title, answers }) => (
-          <AnswerItem title={title} answers={answers}/>
+      <div className='grid grid-cols-4 gap-2'>
+        {correctAnswers.map(({ level, title, answers }, index) => (
+          <AnswerItem key={`${title}-${index}`} title={title} answers={answers} level={level}/>
         ))}
       </div>
   )
 }
 
-function AnswerItem({ title, answers }: {title: string, answers: string[]}) {
+function AnswerItem({ level, title, answers }: { level: number, title: string, answers: string[]}) {
   return (
-    <div className='col-span-full flex flex-col justify-center items-center border-2 border-solid border-neutral-300 rounded-lg'>
+    <div 
+      style={{ backgroundColor: COLORS[level as keyof typeof COLORS]}} 
+      className='col-span-full flex flex-col justify-center items-center border-2 border-solid border-neutral-300 rounded-lg'
+    >
       <p>{title}</p>
       <p><span>{answers[0]}</span>, <span>{answers[1]}</span>, <span>{answers[2]}</span>, <span>{answers[3]}</span></p>
     </div>

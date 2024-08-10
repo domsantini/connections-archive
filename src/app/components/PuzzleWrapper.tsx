@@ -3,19 +3,25 @@ import React from 'react'
 import AnswerBoard from './AnswerBoard'
 import PuzzleBoard from './PuzzleBoard';
 import PuzzleButtons from './PuzzleButtons'
-import useGetPuzzle from '../hooks/use-get-puzzle';
-import { puzzleEx } from '../data'
+import Modal from './Modal';
+
 import {randomize} from '../utils/utils'
 import PuzzleHeader from './PuzzleHeader';
+import LivesRemaining from './LivesRemaining';
+import NotificationShelf from './NotificationShelf';
+import { useNotificationContext } from '../context/notificationContext';
 
-function PuzzleWrapper() {
-  const { id, date, initialBoard, answerKey } = useGetPuzzle(puzzleEx);
+function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date: string, initialBoard: string[], answerKey: { title: string, answers: string[]}[]}) {
+  const [lives, setLives] = React.useState(4)
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [puzzleBoard, setPuzzleBoard] = React.useState(initialBoard)
   const [currentGuess, setCurrentGuess] = React.useState<string[]>([])
-  const [correctAnswers, setCorrectAnswers] = React.useState<{title: string, answers: string[]}[]>([])
-
-  console.log(correctAnswers)
+  const [guessHistory, setGuessHistory] = React.useState<string[][]>([])
+  const [correctAnswers, setCorrectAnswers] = React.useState<{level: number, title: string, answers: string[]}[]>([])
+  const [results, setResults] = React.useState<number[][]>([])
   
+  const { notifications, handleSettingNotifications } = useNotificationContext()
+    
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     const content = event.currentTarget.innerText;
     const inArray = currentGuess.includes(content);
@@ -35,9 +41,13 @@ function PuzzleWrapper() {
     }
   }
   
+  function handleDeselectAll() {
+    setCurrentGuess([])
+  }
+  
   function handleShuffle() {
-    const newBoard = randomize(initialBoard)
-    setPuzzleBoard(newBoard)
+    const newBoard = randomize(puzzleBoard)
+    setPuzzleBoard([...newBoard])
   }
   
   function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
@@ -45,16 +55,28 @@ function PuzzleWrapper() {
     
     function checkAnswer(currentGuess: string[], answerKey: { title: string, answers: string[]}[]) {
       let maxCorrect = 0;
+      let tempArray: { word: string, index: number }[] = []
       
-      for (const category of answerKey) {
+      for (const [index, category] of answerKey.entries()) {
         if (currentGuess.toString() === category.answers.toString()) {
-          console.log(`Correctly guessed ${category.title}`)
           setCorrectAnswers((previousCorrect) => (
             [
               ...previousCorrect, 
-              category
+              {
+                level: index,
+                ...category
+              }
             ]
           ))
+          
+          setResults(prevResults => {
+            const nextResult = [
+              ...prevResults,
+              [ index, index, index, index ]
+            ]
+            
+            return nextResult
+          })
           
           setCurrentGuess([])
           
@@ -67,29 +89,67 @@ function PuzzleWrapper() {
           
           for (const word of currentGuess) {
             if (category.answers.includes(word)) {
+              tempArray.push({
+                word,
+                index
+              })
               currCorrect++
             } else {
               continue
-            }
-            
+            } 
             maxCorrect = Math.max(currCorrect, maxCorrect)
-          }
-          console.log(`Close.. You got ${maxCorrect}`)
+          }  
         }
+        
+        tempArray.sort((a, b) => a.word.localeCompare(b.word))
+        
       }
+      
+      setResults(prevResults => {
+        const resultsArray: number[] = []
+        tempArray.forEach(({ index }) => resultsArray.push(index))
+        
+        const nextResults = [
+          ...prevResults,
+          resultsArray
+        ]
+        
+        return nextResults
+      })
+      
+      if (handleSettingNotifications(maxCorrect, currentGuess, guessHistory)) {
+        return
+      }
+       
+      maxCorrect = 0
+      setLives(prevLives => prevLives - 1)
+    }
+    
+    if (!guessHistory.includes(currentGuess)) {
+      setGuessHistory(prevGuesses => {
+        const nextGuesses = [
+          ...prevGuesses, 
+          currentGuess
+        ]
+        
+        return nextGuesses
+      })
     }
     
     checkAnswer(currentGuess, answerKey)
   }
   
   return (
-    <div className='flex flex-col items-center gap-5'>
-      <PuzzleHeader id={id} date={date} />
-      <div className='relative w-full max-w-[650px]'>
-        <AnswerBoard correctAnswers={correctAnswers}/>
-        <PuzzleBoard puzzleBoard={puzzleBoard} currentGuess={currentGuess} handleClick={handleClick}/>
+    <div className='relative flex flex-col items-center gap-5'>
+      {(lives === 0 || correctAnswers.length === 4 || isModalOpen) && <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} puzzleId={id} results={results} />}
+      {notifications.length > 0 && <NotificationShelf notifications={notifications}/>}
+      <div className='relative w-full p-4 max-w-[650px] space-y-2'>
+        <PuzzleHeader id={id} date={date} />
+        {correctAnswers.length > 0 && <AnswerBoard correctAnswers={correctAnswers}/>}
+        <PuzzleBoard puzzleBoard={puzzleBoard} currentGuess={currentGuess} handleClick={handleClick} />
       </div>
-      <PuzzleButtons handleShuffle={handleShuffle} handleSubmit={handleSubmit}/>
+      <LivesRemaining lives={lives} />
+      <PuzzleButtons handleDeselectAll={handleDeselectAll} handleShuffle={handleShuffle} handleSubmit={handleSubmit}/>
     </div>
   )
 }
