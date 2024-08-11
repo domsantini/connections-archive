@@ -25,7 +25,7 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   console.log({ currentGuess, guessHistory, correctAnswers, results })
   
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    const content = event.currentTarget.innerText;
+    const content = event.currentTarget.innerText.trim();
     const inArray = currentGuess.includes(content);
     const fullArray = currentGuess.length === 4;
     
