@@ -14,7 +14,6 @@ function useGetPuzzleDate(puzzleNum: number) {
     'Dec': 'December',
   } as const;
   
-  
   const firstDate = new Date('06/12/2023')
   
   const rawPuzzleDate = new Date(new Date('06/12/2023').setDate(firstDate.getDate() + (puzzleNum - 1))).toDateString()

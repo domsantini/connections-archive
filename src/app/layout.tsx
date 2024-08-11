@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <NotificationContextProvider>  
-        <body className={`${inter.className} h-[calc(100dvh)] flex flex-col relative border-2 border-solid border-red-500`}>
+        <body className={`${inter.className} h-[calc(100dvh)] flex flex-col relative`}>
           <Navbar />
             {children}
           <Footer />

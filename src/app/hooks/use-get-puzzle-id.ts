@@ -1,15 +1,16 @@
 function useGetPuzzleId() {
+  // Using 5 for June because dates are 0 indexed
+  const firstDate = new Date(2023, 5, 12)
+  firstDate.setHours(0,0,0,0)
+  const currentDate = new Date()
+  currentDate.setHours(0,0,0,0)
   
-  const firstDate = Number(new Date('06/12/2023'))
+  const timeDiff = currentDate.getTime() - firstDate.getTime()
+  const ONE_DAY = 1000 * 60 * 60 * 24
+  const daysDiff = Math.floor(timeDiff / ONE_DAY)
   
-  const currentMonth = new Date().getMonth() + 1
-  const currentDay = new Date().getDate()
-  const currentYear = new Date().getFullYear()
-  
-  const currentDate = Number(new Date(`${currentMonth}/${currentDay}/${currentYear}`))
-  
-  const puzzleId = Math.round((currentDate - firstDate) / (1000 * 60 * 60 * 24) + 1).toString()
-  
+  const puzzleId = (daysDiff + 1).toString()
+    
   return puzzleId
 }
 
