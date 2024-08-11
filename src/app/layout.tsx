@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <NotificationContextProvider>  
-        <body className={`${inter.className} min-h-screen max-h-screen flex flex-col relative`}>
+        <body className={`${inter.className} h-[calc(100dvh)] flex flex-col relative border-2 border-solid border-red-500`}>
           <Navbar />
             {children}
           <Footer />

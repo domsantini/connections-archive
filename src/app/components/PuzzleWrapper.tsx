@@ -141,7 +141,8 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   
   return (
     <div className='relative flex flex-col items-center gap-5'>
-      {currentGuess}
+      
+      {results}
       {(lives === 0 || correctAnswers.length === 4 || isModalOpen) && <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} puzzleId={id} results={results} />}
       {notifications.length > 0 && <NotificationShelf notifications={notifications}/>}
       <div className='relative w-full p-4 max-w-[650px] space-y-2'>
