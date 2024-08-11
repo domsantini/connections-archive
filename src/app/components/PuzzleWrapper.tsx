@@ -22,6 +22,8 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   
   const { notifications, handleSettingNotifications } = useNotificationContext()
     
+  console.log({ currentGuess, guessHistory, correctAnswers, results })
+  
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     const content = event.currentTarget.innerText;
     const inArray = currentGuess.includes(content);
