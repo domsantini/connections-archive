@@ -70,14 +70,14 @@ function PuzzleBoardItem({ content, handleClick, currentGuess, puzzleBoard, ...m
       ref={buttonRef}
       key={content}
       className={
-        `flex justify-center items-center h-16 w-full rounded-lg
-        ${currentGuess.length === 4 ? 'cursor-default' : 'hover:bg-neutral-400 active:bg-neutral-500 cursor-pointer'} 
-        ${currentGuess.includes(content) ? 'bg-neutral-500 hover:cursor-pointer active:bg-neutral-500' : 'bg-neutral-200'
+        `flex justify-center items-center h-16 w-full rounded-lg transition-colors
+        ${currentGuess.length === 4 ? 'cursor-default' : 'active:bg-neutral-500 active:text-white active:scale-95 cursor-pointer'} 
+        ${currentGuess.includes(content) ? 'bg-neutral-500 hover:cursor-pointer active:bg-neutral-500 text-white' : 'bg-neutral-200'
         }`
       } 
       onClick={(event) => handleClick(event)}
       layout
-      
+      whileTap={{ scale: 0.9 }}
     >
       <p 
         ref={wordRef}

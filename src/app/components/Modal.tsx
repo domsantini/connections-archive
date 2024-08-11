@@ -24,7 +24,7 @@ export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }
             <ModalBackdrop isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} className="absolute inset-0 bg-black opacity-75"/>
             {/* <ModalBackdrop className="pointer-events-none absolute inset-0 bg-black opacity-50" /> */}
             <ModalContentWrapper className="relative bg-white rounded-lg p-10">
-              <ModalContent className=" space-y-4">
+              <ModalContent className="flex flex-col justify-center gap-4">
                 <h1 className='text-lg font-medium'>Connection #{puzzleId}</h1>
                 <div className="flex flex-col gap-1">
                   {results.map((resultArray, index) => (
@@ -38,7 +38,7 @@ export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }
                     </div>
                   ))}
                 </div>
-                <button onClick={() => console.log('click')}className='px-4 py-2 border-2 border-solid border-neutral-300 rounded-full'>Share</button>
+                <button onClick={() => console.log('click')}className='px-4 py-2 border border-solid border-obsidian rounded-full'>Share</button>
               </ModalContent>
             </ModalContentWrapper>
           </ModalWrapper>

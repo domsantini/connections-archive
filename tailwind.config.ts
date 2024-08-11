@@ -19,6 +19,9 @@ const config: Config = {
       fontSize: {
         clamp: "clamp(0.5rem, 0.8rem, 1rem)",
       },
+      transitionProperty: {
+        'scale': 'scale',
+      }
     },
   },
   plugins: [],
