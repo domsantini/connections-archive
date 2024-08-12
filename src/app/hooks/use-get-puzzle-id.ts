@@ -7,7 +7,7 @@ function useGetPuzzleId() {
   
   const timeDiff = currentDate.getTime() - firstDate.getTime()
   const ONE_DAY = 1000 * 60 * 60 * 24
-  const daysDiffNoRound = Math.floor(timeDiff / ONE_DAY)
+  const daysDiffNoRound = timeDiff / ONE_DAY
   const daysDiff = Math.floor(timeDiff / ONE_DAY)
   
   const puzzleId = (daysDiff + 1).toString()
