@@ -22,14 +22,10 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   
   const { notifications, handleSettingNotifications } = useNotificationContext()
     
-  console.log({isModalOpen})
-  
-  React.useEffect(() => {
-    
+  React.useEffect(() => {  
     if (lives === 0 || correctAnswers.length === 4) {
       setIsModalOpen(true)
     }
-    
   }, [lives, correctAnswers])
   
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
