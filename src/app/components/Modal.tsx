@@ -18,12 +18,20 @@ const COLORS = {
 
 export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }: { isModalOpen: boolean, setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>, puzzleId: string, results: number[][] }) {
   
+  const emojiResults = results.map(resultArray => ( 
+    resultArray.map(num => (
+      ICONS[num as keyof typeof ICONS]
+    ))
+  ))
+  
+  console.log({ emojiResults })
+  
   async function handleShare() {    
     if (navigator.share) {
       try {
         await navigator.share({
           title: 'Game Results',
-          text: `Here are my results: ${results.join(', ')}`,
+          text: `Connection\n#${puzzleId}\n${emojiResults.join('\n')}`,
           // url: window.location.href,
         });
         console.log('Share successful');

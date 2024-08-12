@@ -11,6 +11,8 @@ function useGetPuzzleId() {
   
   const puzzleId = (daysDiff + 1).toString()
     
+  console.log({ firstDate, currentDate, timeDiff, daysDiff, puzzleId })
+  
   return puzzleId
 }
 
