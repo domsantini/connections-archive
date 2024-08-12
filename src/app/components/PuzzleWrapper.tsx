@@ -153,7 +153,7 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
         {isModalOpen && <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} puzzleId={id} results={results} />}
       </AnimatePresence>
       {notifications.length > 0 && <NotificationShelf notifications={notifications}/>}
-      <div className='relative w-full px-4 max-w-[650px]'>
+      <div className='relative w-full px-4 max-w-[650px] space-y-2'>
         <PuzzleHeader id={id} date={date} />
         {correctAnswers.length > 0 && <AnswerBoard correctAnswers={correctAnswers}/>}
         <PuzzleBoard puzzleBoard={puzzleBoard} currentGuess={currentGuess} handleClick={handleClick} />
