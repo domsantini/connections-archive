@@ -39,7 +39,7 @@ export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }
                   ))}
                 </div>
                 <button onClick={() => console.log('click')}className='px-4 py-2 border border-solid border-obsidian rounded-full'>Share</button>
-                <ShareButton results={results} />
+                {/* <ShareButton results={results} /> */}
               </ModalContent>
             </ModalContentWrapper>
           </ModalWrapper>
