@@ -12,6 +12,7 @@ import NotificationShelf from './NotificationShelf';
 import { useNotificationContext } from '../context/notificationContext';
 
 import { AnimatePresence } from 'framer-motion';
+import isEqual from 'lodash/isEqual';
 
 function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date: string, initialBoard: string[], answerKey: { title: string, answers: string[]}[]}) {
   const [lives, setLives] = React.useState(4)
@@ -24,6 +25,8 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   
   const { notifications, handleSettingNotifications } = useNotificationContext()
     
+  console.log({ currentGuess, guessHistory })
+  
   React.useEffect(() => {  
     if (lives === 0 || correctAnswers.length === 4) {
       setIsModalOpen(true)
@@ -133,7 +136,7 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
       setLives(prevLives => prevLives - 1)
     }
     
-    if (!guessHistory.includes(currentGuess)) {
+    if (!guessHistory.some(guess => isEqual(guess, currentGuess))) {
       setGuessHistory(prevGuesses => {
         const nextGuesses = [
           ...prevGuesses, 

@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { isEqual } from "lodash";
 
 export interface NotificationType {
   timestamp: number;
@@ -45,7 +46,7 @@ export function NotificationContextProvider({
 
   function handleSettingNotifications(maxCorrect: number, currentGuess: string[], guessHistory: string[][]) {
     
-    if (maxCorrect === 3 && guessHistory.includes(currentGuess)) {
+    if (maxCorrect === 3 && guessHistory.some(guess => isEqual(guess, currentGuess))) {
       setNotifications((prevNotifications) => {
         const nextNotification = [
           ...prevNotifications,
@@ -74,7 +75,7 @@ export function NotificationContextProvider({
       return false
     }
     
-    if (guessHistory.includes(currentGuess)) {
+    if (guessHistory.some(guess => isEqual(guess, currentGuess))) {
       setNotifications((prevNotifications) => {
         const nextNotification = [
           ...prevNotifications,
