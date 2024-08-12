@@ -31,7 +31,7 @@ export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }
       try {
         await navigator.share({
           title: 'Game Results',
-          text: `Connection\n#${puzzleId}\n${emojiResults.join('\n').replaceAll(',','')}`,
+          text: `Connection\nPuzzle #${puzzleId}\n${emojiResults.join('\n').replaceAll(',','')}`,
           // url: window.location.href,
         });
         console.log('Share successful');
