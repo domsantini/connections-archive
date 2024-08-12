@@ -81,9 +81,7 @@ function ModalContent({
 
 function ShareButton({ results }: { results: number[][]}) {
   
-  async function handleShare() {
-    console.log('handling share')
-    
+  async function handleShare() {    
     if (navigator.share) {
       try {
         await navigator.share({
@@ -99,7 +97,6 @@ function ShareButton({ results }: { results: number[][]}) {
       console.error('Web Share API not supported in this browser');
     }
   };
-  
   
   return (
     <button onClick={handleShare}>Share Results</button>
