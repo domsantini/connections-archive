@@ -87,7 +87,7 @@ function ShareButton({ results }: { results: number[][]}) {
         await navigator.share({
           title: 'Game Results',
           text: `Here are my results: ${results.join(', ')}`,
-          url: window.location.href,
+          // url: window.location.href,
         });
         console.log('Share successful');
       } catch (error) {
