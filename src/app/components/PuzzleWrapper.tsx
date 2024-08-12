@@ -148,12 +148,12 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   }
   
   return (
-    <div className='relative flex flex-col items-center gap-5'>
+    <div className='relative flex flex-col items-center gap-6'>
       <AnimatePresence>  
         {isModalOpen && <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} puzzleId={id} results={results} />}
       </AnimatePresence>
       {notifications.length > 0 && <NotificationShelf notifications={notifications}/>}
-      <div className='relative w-full p-4 max-w-[650px] space-y-2'>
+      <div className='relative w-full px-4 max-w-[650px]'>
         <PuzzleHeader id={id} date={date} />
         {correctAnswers.length > 0 && <AnswerBoard correctAnswers={correctAnswers}/>}
         <PuzzleBoard puzzleBoard={puzzleBoard} currentGuess={currentGuess} handleClick={handleClick} />
