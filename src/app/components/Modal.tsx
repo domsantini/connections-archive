@@ -39,6 +39,7 @@ export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }
                   ))}
                 </div>
                 <button onClick={() => console.log('click')}className='px-4 py-2 border border-solid border-obsidian rounded-full'>Share</button>
+                <ShareButton results={results} />
               </ModalContent>
             </ModalContentWrapper>
           </ModalWrapper>
@@ -77,3 +78,30 @@ function ModalContent({
 }) {
   return <div className={className}>{children}</div>;
 }
+
+function ShareButton({ results }: { results: number[][]}) {
+  
+  async function handleShare() {
+    console.log('handling share')
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Game Results',
+          text: `Here are my results: ${results.join(', ')}`,
+          url: window.location.href,
+        });
+        console.log('Share successful');
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      console.error('Web Share API not supported in this browser');
+    }
+  };
+  
+  
+  return (
+    <button onClick={handleShare}>Share Results</button>
+  );
+} 
