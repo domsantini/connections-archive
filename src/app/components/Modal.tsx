@@ -1,6 +1,8 @@
 import React from "react";
 import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
+import { X as Close } from 'react-feather'
+import { motion } from 'framer-motion'
 
 const ICONS = {
   0: "🟨",
@@ -23,9 +25,7 @@ export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }
       ICONS[num as keyof typeof ICONS]
     ))
   ))
-  
-  console.log({ emojiResults })
-  
+    
   async function handleShare() {    
     if (navigator.share) {
       try {
@@ -43,7 +43,6 @@ export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }
     }
   };
   
-  
   return (
     <FocusLock>
       <RemoveScroll>
@@ -51,6 +50,7 @@ export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }
             <ModalBackdrop isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} className="absolute inset-0 bg-black opacity-75"/>
             {/* <ModalBackdrop className="pointer-events-none absolute inset-0 bg-black opacity-50" /> */}
             <ModalContentWrapper className="relative bg-white rounded-lg p-10">
+              <Close onClick={() => setIsModalOpen(false)} className='cursor-pointer absolute top-0 right-0 m-4'/>
               <ModalContent className="flex flex-col justify-center gap-4">
                 <h1 className='text-lg font-medium'>Connection #{puzzleId}</h1>
                 <div className="flex flex-col gap-1">
@@ -82,7 +82,7 @@ function ModalWrapper({
   className: string;
   children: React.ReactNode;
 }) {
-  return <div className={className}>{children}</div>;
+  return <motion.div initial={{ opacity: 0}} animate={{ opacity: 1}} exit={{ opacity: 0}}  className={className}>{children}</motion.div>;
 }
 function ModalBackdrop({ isModalOpen, setIsModalOpen, className }: { isModalOpen: boolean, setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>, className: string }) {
   return <div onClick={() => setIsModalOpen(!isModalOpen)} className={className} />;

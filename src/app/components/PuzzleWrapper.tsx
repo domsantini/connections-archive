@@ -11,6 +11,8 @@ import LivesRemaining from './LivesRemaining';
 import NotificationShelf from './NotificationShelf';
 import { useNotificationContext } from '../context/notificationContext';
 
+import { AnimatePresence } from 'framer-motion';
+
 function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date: string, initialBoard: string[], answerKey: { title: string, answers: string[]}[]}) {
   const [lives, setLives] = React.useState(4)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
@@ -147,7 +149,9 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   
   return (
     <div className='relative flex flex-col items-center gap-5'>
-      {isModalOpen && <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} puzzleId={id} results={results} />}
+      <AnimatePresence>  
+        {isModalOpen && <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} puzzleId={id} results={results} />}
+      </AnimatePresence>
       {notifications.length > 0 && <NotificationShelf notifications={notifications}/>}
       <div className='relative w-full p-4 max-w-[650px] space-y-2'>
         <PuzzleHeader id={id} date={date} />
@@ -155,7 +159,7 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
         <PuzzleBoard puzzleBoard={puzzleBoard} currentGuess={currentGuess} handleClick={handleClick} />
       </div>
       <LivesRemaining lives={lives} />
-      <PuzzleButtons currentGuess={currentGuess} handleDeselectAll={handleDeselectAll} handleShuffle={handleShuffle} handleSubmit={handleSubmit}/>
+      <PuzzleButtons setIsModalOpen={setIsModalOpen} lives={lives} correctAnswers={correctAnswers} currentGuess={currentGuess} handleDeselectAll={handleDeselectAll} handleShuffle={handleShuffle} handleSubmit={handleSubmit}/>
     </div>
   )
 }
