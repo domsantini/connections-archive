@@ -5,7 +5,7 @@ import useGetPuzzle from "@/app/hooks/use-get-puzzle";
 async function Home() {
 
   const puzzleId = useGetPuzzleId();
-  const { date, initialBoard, answerKey } = await useGetPuzzle(puzzleId);
+  const { date, initialBoard, answerKey } = await useGetPuzzle();
       
   return (
     <>

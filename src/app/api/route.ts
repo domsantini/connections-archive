@@ -1,10 +1,9 @@
-import { getPuzzleById } from '../../../utils/puzzle'
+import { getTodaysPuzzle } from '@/app/utils/puzzle'
 export const dynamic = 'force-dynamic' // defaults to auto
 
 export async function GET(req: Request, {params}: {params: { id: string }}) {
     
-  const puzzleId = params.id
-  const puzzleData = await getPuzzleById(puzzleId)
+  const puzzleData = await getTodaysPuzzle()
   
   return Response.json({ puzzleData })
 }

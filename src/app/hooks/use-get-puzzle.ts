@@ -1,4 +1,4 @@
-import { getPuzzle } from '../utils/puzzle';
+import { getTodaysPuzzle, getPuzzleById } from '../utils/puzzle';
 import { formatDate } from '../utils/utils'
  
 interface Card {
@@ -6,25 +6,23 @@ interface Card {
 	position: number,
 }
 
-interface Category {
-	title: string,
-	cards: Card[]
-}
-
-interface PuzzleData {
-	id: number,
-	print_date: string,
-	categories: Category[]
-}
-
-async function fetchPuzzleData(puzzleId: string) {
-	const { puzzleData } = await getPuzzle(puzzleId)
+async function fetchPuzzleData(puzzleId?: string) {
+	let puzzleData;
+	
+	if (!puzzleId) {	
+		const result = await getTodaysPuzzle()
+		puzzleData = result.puzzleData 
+	} else {
+		const result = await getPuzzleById(puzzleId)
+		puzzleData = result.puzzleData 
+	}
+	
 	if (!puzzleData) throw new Error('Failed to fetch puzzle data')
 		
 	return { puzzleData };
 }
 
-async function useGetPuzzle(puzzleId: string) {
+async function useGetPuzzle(puzzleId?: string) {
 	
 	const { puzzleData } = await fetchPuzzleData(puzzleId)
 	

@@ -24,8 +24,6 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   const [results, setResults] = React.useState<number[][]>([])
   
   const { notifications, handleSettingNotifications } = useNotificationContext()
-    
-  console.log({ currentGuess, guessHistory })
   
   React.useEffect(() => {  
     if (lives === 0 || correctAnswers.length === 4) {

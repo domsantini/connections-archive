@@ -19,7 +19,7 @@ async function init() {
   await init();
 })()
 
-export async function getPuzzle(puzzleId) {
+export async function getPuzzleById(puzzleId) {
   try {
     if (!puzzles) await init();
     const puzzleDataRaw = await puzzles.find({index: puzzleId.toString()}).toArray()
@@ -29,3 +29,18 @@ export async function getPuzzle(puzzleId) {
     return { error: "Failed to fetch puzzle" };
   }
 }
+
+export async function getTodaysPuzzle() {
+  const todaysDate = new Date().toISOString().slice(0,10)
+  
+  try {
+    if (!puzzles) await init();
+    const puzzleDataRaw = await puzzles.find({"content.print_date": todaysDate}).toArray()
+    const puzzleData = puzzleDataRaw[0].content
+    return { puzzleData };
+  } catch (error) {
+    return { error: "Failed to fetch puzzle" };
+  }
+}
+
+
