@@ -7,7 +7,7 @@ function NotificationShelf({
   notifications: NotificationType[];
 }) {
   return (
-    <div className="absolute top-0 space-y-2 z-50">
+    <div className="absolute top-0 space-y-2 z-[9999]">
       <AnimatePresence>
         {notifications.map(({ timestamp, message }) => (
           <motion.div

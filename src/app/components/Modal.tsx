@@ -3,6 +3,7 @@ import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
 import { X as Close } from 'react-feather'
 import { motion } from 'framer-motion'
+import { useNotificationContext } from "../context/notificationContext";
 
 const ICONS = {
   0: "🟨",
@@ -19,6 +20,8 @@ const COLORS = {
 } as const
 
 export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }: { isModalOpen: boolean, setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>, puzzleId: string, results: number[][] }) {
+  
+  const { setNotifications } = useNotificationContext()
   
   const emojiResults = results.map(resultArray => ( 
     resultArray.map(num => (
@@ -39,8 +42,22 @@ export default function Modal({ isModalOpen, setIsModalOpen, puzzleId, results }
         console.error('Error sharing:', error);
       }
     } else {
-      console.error('Web Share API not supported in this browser');
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(`Connection\nPuzzle #${puzzleId}\n${emojiResults.join('\n').replaceAll(',','')}`)
+      };
+      setNotifications((prevNotifications) => {
+        const nextNotification = [
+          ...prevNotifications,
+          {
+            timestamp: Date.now(),
+            message: 'Copied to clipboard!'
+          }
+        ]
+        return nextNotification;
+      })  
+      console.log('Share successful');
     }
+    console.error('Web Share API not supported in this browser');
   };
   
   return (
