@@ -1,4 +1,5 @@
 import React from 'react'
+import useWindowSize from '../hooks/use-window-size'
 
 const COLORS = {
   0: '#F7DC6F',
@@ -19,13 +20,15 @@ function AnswerBoard({ correctAnswers }: {correctAnswers: { level:number, title:
 }
 
 function AnswerItem({ level, title, answers }: { level: number, title: string, answers: string[]}) {
+    
   return (
     <div 
+  
       style={{ backgroundColor: COLORS[level as keyof typeof COLORS]}} 
-      className='col-span-full flex flex-col justify-center items-center rounded-lg h-16'
+      className='col-span-full flex flex-col justify-center items-center gap-1 rounded-lg h-16 text-center'
     >
-      <p>{title}</p>
-      <p><span>{answers[0]}</span>, <span>{answers[1]}</span>, <span>{answers[2]}</span>, <span>{answers[3]}</span></p>
+      <p className='font-semibold text-sm sm:text-base'>{title}</p>
+      <p className='text-xs sm:text-sm'><span>{answers[0]}</span>, <span>{answers[1]}</span>, <span>{answers[2]}</span>, <span>{answers[3]}</span></p>
     </div>
   )
 }

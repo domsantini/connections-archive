@@ -36,7 +36,7 @@ export default function PuzzleBoard({ puzzleBoard, currentGuess, handleClick }: 
   )
 }
 
-function PuzzleBoardItem({ content, handleClick, currentGuess, puzzleBoard, ...motionProps }: PuzzleItemProps) {
+function PuzzleBoardItem({ content, handleClick, currentGuess, puzzleBoard }: PuzzleItemProps) {
 
   const buttonRef = React.useRef<HTMLButtonElement>(null)
   const wordRef = React.useRef<HTMLParagraphElement>(null)
