@@ -25,8 +25,6 @@ export function NotificationContextProvider({
   const [notifications, setNotifications] = React.useState<NotificationType[]>([]);
   const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
-  
-  
   React.useEffect(() => {
     if (notifications.length > 0 && !intervalRef.current) {
       intervalRef.current = setInterval(() => {
@@ -96,7 +94,7 @@ export function NotificationContextProvider({
   const value = React.useMemo(() => {
     return { notifications, setNotifications, handleSettingNotifications };
   }, [notifications]);
-
+  
   return (
     <NotificationContext.Provider value={value}>
       {children}

@@ -1,5 +1,4 @@
 import React from 'react'
-import useWindowSize from '../hooks/use-window-size'
 
 const COLORS = {
   0: '#F7DC6F',
@@ -8,7 +7,7 @@ const COLORS = {
   3: '#BB8FCE',
 } as const
 
-function AnswerBoard({ correctAnswers }: {correctAnswers: { level:number, title: string, answers: string[]}[]}) {
+function AnswerBoard({ correctAnswers }: { correctAnswers: { level:number, title: string, answers: string[]}[] }) {
   
   return (
       <div className='grid grid-cols-4 gap-2'>
@@ -22,8 +21,7 @@ function AnswerBoard({ correctAnswers }: {correctAnswers: { level:number, title:
 function AnswerItem({ level, title, answers }: { level: number, title: string, answers: string[]}) {
     
   return (
-    <div 
-  
+    <div   
       style={{ backgroundColor: COLORS[level as keyof typeof COLORS]}} 
       className='col-span-full flex flex-col justify-center items-center gap-1 rounded-lg h-16 text-center'
     >

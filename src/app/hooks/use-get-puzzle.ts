@@ -27,13 +27,12 @@ async function useGetPuzzle(puzzleId?: string) {
 	const { puzzleData } = await fetchPuzzleData(puzzleId)
 	
 	const initialTempBoard: { content: string, position: number }[] = [];
-	const answerKey: { title: string, answers: string[] }[] = [];
+	const answerKey: { level:number, title: string, answers: string[] }[] = [];
 	const { print_date, categories } = puzzleData;
-	
 	
 	const date: string = formatDate(print_date)
 	
-	categories.forEach(({ title, cards }: { title: string, cards: Card[] }) => {
+	categories.forEach(({ title, cards }: { title: string, cards: Card[] }, index: number) => {
 		const answers: string[] = [];
 		
 		cards.forEach(({ content, position }: { content: string, position: number }, index: number)=> {
@@ -41,7 +40,7 @@ async function useGetPuzzle(puzzleId?: string) {
 			answers.push(content)		
 		})
 		
-		answerKey.push({ title, answers })
+		answerKey.push({ level: index, title, answers })
 	})
 	
 	initialTempBoard.sort((a, b) => a.position - b.position)
