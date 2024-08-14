@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import PuzzleWrapper from "@/app/components/PuzzleWrapper";
 import useGetPuzzleId from "@/app/hooks/use-get-puzzle-id";
 import useGetPuzzle from "@/app/hooks/use-get-puzzle";
