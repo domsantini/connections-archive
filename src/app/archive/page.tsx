@@ -1,4 +1,5 @@
 'use client'
+export const dynamic = 'force-dynamic'
 import React from 'react'
 import PuzzleList from '../components/PuzzleList';
 import useGetPuzzleId from "@/app/hooks/use-get-puzzle-id";
