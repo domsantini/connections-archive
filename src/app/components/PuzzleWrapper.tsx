@@ -58,7 +58,7 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
       runAnswerRevealAnimation()
     }
     
-  }, [lives, correctAnswers.length, remainingAnswers])
+  }, [lives])
   
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     const content = event.currentTarget.innerText.trim();
