@@ -58,7 +58,7 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
       runAnswerRevealAnimation()
     }
     
-  }, [lives])
+  }, [lives, correctAnswers.length, remainingAnswers])
   
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     const content = event.currentTarget.innerText.trim();
@@ -194,7 +194,7 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
         {notifications.length > 0 && <NotificationShelf notifications={notifications}/>}
         <div className='relative w-full px-4 max-w-[650px] space-y-2'>
           <PuzzleHeader id={id} date={date} />
-          {(correctAnswers.length > 0 || lives === 0) && <AnswerBoard lives={lives} correctAnswers={correctAnswers} remainingAnswers={remainingAnswers}/>}
+          {(correctAnswers.length > 0 || lives === 0) && <AnswerBoard correctAnswers={correctAnswers} />}
           <PuzzleBoard puzzleBoard={puzzleBoard} currentGuess={currentGuess} handleClick={handleClick} />
         </div>
         <LivesRemaining lives={lives} />
