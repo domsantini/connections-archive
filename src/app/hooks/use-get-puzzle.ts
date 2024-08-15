@@ -10,9 +10,11 @@ async function fetchPuzzleData(puzzleId?: string) {
 	let puzzleData;
 	
 	if (!puzzleId) {	
+		console.log('no id, using date')
 		const result = await getTodaysPuzzle()
 		puzzleData = result.puzzleData 
 	} else {
+		console.log('using id')
 		const result = await getPuzzleById(puzzleId)
 		puzzleData = result.puzzleData 
 	}

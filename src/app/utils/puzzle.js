@@ -33,6 +33,7 @@ export async function getPuzzleById(puzzleId) {
 
 export async function getTodaysPuzzle() {
   const todaysDate = moment().format().slice(0,10)
+  console.log({ todaysDate })
   
   try {
     if (!puzzles) await init();
