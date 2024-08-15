@@ -1,4 +1,5 @@
 import clientPromise from "./mongo";
+import moment from "moment";
 
 let client;
 let db;
@@ -31,7 +32,7 @@ export async function getPuzzleById(puzzleId) {
 }
 
 export async function getTodaysPuzzle() {
-  const todaysDate = new Date().toISOString().slice(0,10)
+  const todaysDate = moment().format().slice(0,10)
   
   try {
     if (!puzzles) await init();

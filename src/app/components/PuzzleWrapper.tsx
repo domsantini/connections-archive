@@ -18,7 +18,7 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   const storageKeyPrefix = `puzzle-${id}`
   // const [lives, setLives] = React.useState(4)
   const [lives, setLives] = React.useState<number>(() => {
-    const savedLives = localStorage.getItem(`${storageKeyPrefix}-lives`)
+    const savedLives = localStorage.getItem(`${storageKeyPrefix}-lives`) || undefined
     return savedLives ? JSON.parse(savedLives) : 4
   })
   

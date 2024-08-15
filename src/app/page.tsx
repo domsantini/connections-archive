@@ -8,8 +8,6 @@ async function Home() {
 
   const puzzleId = useGetPuzzleId();
   const { date, initialBoard, answerKey } = await useGetPuzzle();
-    
-  console.log({ puzzleId, date, initialBoard, answerKey })
   
   return (
     <>
