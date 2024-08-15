@@ -15,7 +15,17 @@ import { AnimatePresence } from 'framer-motion';
 import isEqual from 'lodash/isEqual';
 
 function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date: string, initialBoard: string[], answerKey: { level: number, title: string, answers: string[]}[]}) {
-  const [lives, setLives] = React.useState(4)
+  const storageKeyPrefix = `puzzle-${id}`
+  // const [lives, setLives] = React.useState(4)
+  const [lives, setLives] = React.useState<number>(() => {
+    const savedLives = localStorage.getItem(`${storageKeyPrefix}-lives`)
+    return savedLives ? JSON.parse(savedLives) : 4
+  })
+  
+  React.useEffect(() => {
+    localStorage.setItem(`${storageKeyPrefix}-lives`, JSON.stringify(lives));
+  }, [lives, storageKeyPrefix]);
+  
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [puzzleBoard, setPuzzleBoard] = React.useState(initialBoard)
   const [currentGuess, setCurrentGuess] = React.useState<string[]>([])
@@ -25,9 +35,8 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   const [remainingAnswers, setRemainingAnswers] = React.useState(answerKey)
     
   const { notifications, handleSettingNotifications } = useNotificationContext()
-    
+  
   React.useEffect(() => {
-    
     async function runAnswerRevealAnimation() {
       setCurrentGuess([])
       
