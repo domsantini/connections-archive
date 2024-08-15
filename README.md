@@ -9,5 +9,10 @@
 - Frontend / Backend: Next.js
 - Language: TypeScript
 - Database: MongoDB
-- Animations: Framer Motion
 - Daily data fetching: cron / Python
+- Libraries of note:
+  - Animations: [Framer Motion](https://www.framer.com/motion/)
+  - Local storage: [usehooks-ts](https://usehooks-ts.com/)
+  - Icons: [Feather Icons](https://feathericons.com/)
+  - Misc: [Moment.js](https://momentjs.com/), [Lodash](https://lodash.com/), 
+    
