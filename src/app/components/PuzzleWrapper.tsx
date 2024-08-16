@@ -202,10 +202,10 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
       </AnimatePresence>
       <div className='relative flex flex-col items-center gap-6'>
         {notifications.length > 0 && <NotificationShelf notifications={notifications}/>}
+        <PuzzleHeader id={id} date={date} />
         <div className='relative w-full px-4 max-w-[650px] space-y-2'>
-          <PuzzleHeader id={id} date={date} />
           {(correctAnswers.length > 0 || lives === 0) && <AnswerBoard correctAnswers={correctAnswers} />}
-          <PuzzleBoard puzzleBoard={puzzleBoard} currentGuess={currentGuess} handleClick={handleClick} />
+          {correctAnswers.length !== 4 && <PuzzleBoard puzzleBoard={puzzleBoard} currentGuess={currentGuess} handleClick={handleClick} />}
         </div>
         <LivesRemaining lives={lives} />
         <PuzzleButtons setIsModalOpen={setIsModalOpen} lives={lives} correctAnswers={correctAnswers} currentGuess={currentGuess} handleDeselectAll={handleDeselectAll} handleShuffle={handleShuffle} handleSubmit={handleSubmit}/>

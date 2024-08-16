@@ -8,7 +8,7 @@ function PuzzleHeader({ id, date}: { id: string, date: string}) {
   const maxPuzzle = useGetPuzzleId()
   
   return (
-    <div className='flex flex-col justify-center items-center w-full pt-4 pb-6 '>
+    <div className='flex flex-col justify-center items-center w-full pt-4 px-4 max-w-[650px]'>
       <div className='flex justify-between items-center w-full'>
         <PrevPuzzle className={Number(id) - 1 === 0 ? ' invisible' : ''} id={id}/> 
         <h1 className="text-xl font-semibold">Connection #{id}</h1>

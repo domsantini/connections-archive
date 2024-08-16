@@ -12,7 +12,7 @@ function LivesRemaining({ lives }: { lives: number }) {
   const emoji = EMOJIS[lives as keyof typeof EMOJIS];
 
   return (
-    <div className="w-full flex justify-center gap-4 items-center">
+    <div className="w-full flex justify-center gap-4 items-center h-3">
       <AnimatePresence>
         {range(lives).map((num) => (
           <motion.span
