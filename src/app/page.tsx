@@ -25,7 +25,7 @@ function Home() {
   React.useEffect(() => {
     const clientDate = moment().format('YYYY-MM-DD')
     
-    async function fetchData(clientDate: string) {
+    async function FetchData(clientDate: string) {
       try {
         const data = await useGetTodaysPuzzle(clientDate)
         setPuzzleData(data)
@@ -34,7 +34,7 @@ function Home() {
       }
     }
     
-    fetchData(clientDate)
+    FetchData(clientDate)
     
   }, [])
   
