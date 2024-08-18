@@ -1,20 +1,50 @@
+'use client'
+import React from 'react'
 export const dynamic = 'force-dynamic'
+import Loader from '@/app/components/Loader'
 import PuzzleWrapper from "@/app/components/PuzzleWrapper";
 
+import useGetTodaysPuzzle from './hooks/use-get-todays-puzzle';
 import useGetPuzzleId from "@/app/hooks/use-get-puzzle-id";
-import useGetPuzzle from "@/app/hooks/use-get-puzzle";
 
-async function Home() {
+import moment from 'moment';
 
-  const puzzleId = useGetPuzzleId();
-  const { date, initialBoard, answerKey } = await useGetPuzzle();
+type PuzzleDataType = {
+  date: string,
+  initialBoard: string[],
+  answerKey: {
+    level: number;
+    title: string;
+    answers: string[];
+  }[]
+}
+
+function Home() {
+  const [puzzleData, setPuzzleData] = React.useState<PuzzleDataType | null>(null)
   
-  console.log({ puzzleId, date, initialBoard, answerKey })
+  React.useEffect(() => {
+    const clientDate = moment().format('YYYY-MM-DD')
+    
+    async function FetchData(clientDate: string) {
+      try {
+        const data = await useGetTodaysPuzzle(clientDate)
+        setPuzzleData(data)
+      } catch( error ) {
+        console.error('Error fetching puzzle data:', error)
+      }
+    }
+    
+    FetchData(clientDate)
+    
+  }, [])
+  
+  const puzzleId = useGetPuzzleId();
+
   
   return (
     <>
       <main className="flex flex-col grow h-full">
-        <PuzzleWrapper id={puzzleId} date={date} initialBoard={initialBoard} answerKey={answerKey}/>
+        {!puzzleData ? <Loader /> : <PuzzleWrapper id={puzzleId} date={puzzleData.date} initialBoard={puzzleData.initialBoard} answerKey={puzzleData.answerKey}/>}
       </main>
     </>
   );
