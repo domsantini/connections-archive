@@ -19,20 +19,13 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   const storageKeyPrefix = `puzzle-${id}`
   
   
-  // const [lives, setLives] = React.useState(4)
   const [lives, setLives] = useLocalStorage(`${storageKeyPrefix}-lives`, 4)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
-  // const [puzzleBoard, setPuzzleBoard] = React.useState(initialBoard)
   const [puzzleBoard, setPuzzleBoard] = useLocalStorage(`${storageKeyPrefix}-puzzleBoard`, initialBoard)
-  // const [currentGuess, setCurrentGuess] = React.useState<string[]>([])
   const [currentGuess, setCurrentGuess] = useLocalStorage<string[]>(`${storageKeyPrefix}-currentGuess`, [])
-  // const [guessHistory, setGuessHistory] = React.useState<string[][]>([])
   const [guessHistory, setGuessHistory] = useLocalStorage<string[][]>(`${storageKeyPrefix}-guessHistory`, [])
-  // const [correctAnswers, setCorrectAnswers] = React.useState<{level: number, title: string, answers: string[]}[]>([])
   const [correctAnswers, setCorrectAnswers] = useLocalStorage<{level: number, title: string, answers: string[]}[]>(`${storageKeyPrefix}-correctAnswers`, [])
-  // const [results, setResults] = React.useState<number[][]>([])
   const [results, setResults] = useLocalStorage<number[][]>(`${storageKeyPrefix}-results`, [])
-  // const [remainingAnswers, setRemainingAnswers] = React.useState(answerKey)
   const [remainingAnswers, setRemainingAnswers] = useLocalStorage(`${storageKeyPrefix}-remainingAnswers`, answerKey)
     
   const { notifications, handleSettingNotifications } = useNotificationContext()
@@ -161,6 +154,10 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
         
       }
       
+      if (handleSettingNotifications(maxCorrect, currentGuess, guessHistory)) {
+        return
+      }
+      
       setResults(prevResults => {
         const resultsArray: number[] = []
         tempArray.forEach(({ index }) => resultsArray.push(index))
@@ -172,10 +169,6 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
         
         return nextResults
       })
-      
-      if (handleSettingNotifications(maxCorrect, currentGuess, guessHistory)) {
-        return
-      }
        
       maxCorrect = 0
       setLives(prevLives => prevLives - 1)

@@ -35,7 +35,6 @@ function Home() {
     }
     
     FetchData(clientDate)
-    
   }, [])
   
   const puzzleId = useGetPuzzleId();

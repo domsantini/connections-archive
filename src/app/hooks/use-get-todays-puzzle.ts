@@ -20,21 +20,6 @@ async function fetchPuzzleData(date?: string) {
   } catch (error) {
     console.error('Error fetching puzzle data:', error)
   }
-	// let puzzleData;
-	
-	// if (!puzzleId) {	
-	// 	console.log('no id, using date')
-	// 	const result = await getTodaysPuzzle()
-	// 	puzzleData = result.puzzleData 
-	// } else {
-	// 	console.log('using id')
-	// 	const result = await getPuzzleById(puzzleId)
-	// 	puzzleData = result.puzzleData 
-	// }
-	
-	// if (!puzzleData) throw new Error('Failed to fetch puzzle data')
-		
-	// return { puzzleData };
 }
 
 async function useGetTodaysPuzzle(clientDate: string) {
