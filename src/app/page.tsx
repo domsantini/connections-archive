@@ -26,7 +26,11 @@ function Home() {
     const clientDate = moment().format('YYYY-MM-DD')
     
     async function FetchData(clientDate: string) {
-      try {
+      console.log('before delay')
+      await new Promise(resolve => setTimeout(resolve, 5 * 1000))
+      console.log('post delay')
+      
+      try {  
         const data = await useGetTodaysPuzzle(clientDate)
         setPuzzleData(data)
       } catch( error ) {
