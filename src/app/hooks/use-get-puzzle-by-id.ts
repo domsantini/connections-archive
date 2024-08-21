@@ -1,3 +1,4 @@
+import { getTodaysPuzzle, getPuzzleById } from '../utils/puzzle';
 import { formatDate } from '../utils/utils'
  
 interface Card {
@@ -5,17 +6,19 @@ interface Card {
 	position: number,
 }
 
-async function fetchPuzzleData(date?: string) {
+async function fetchPuzzleData(puzzleId?: string) {
   try {
-    const response = await fetch(`api/?date=${date}`)
+    const response = await fetch(`${puzzleId}`)
     
-		console.log({ response })
-		
+    console.log({response})
+    
     if (!response.ok) {
       throw new Error('Failed to fetch puzzle data')
     }
     
     const data = await response.json()
+    
+    console.log({ data })
     
     return data
   } catch (error) {
@@ -23,9 +26,9 @@ async function fetchPuzzleData(date?: string) {
   }
 }
 
-async function useGetTodaysPuzzle(clientDate: string) {
+async function useGetPuzzleById(puzzleId: string) {
 	
-	const { puzzleData } = await fetchPuzzleData(clientDate)
+	const { puzzleData } = await fetchPuzzleData(puzzleId)
 	
 	const initialTempBoard: { content: string, position: number }[] = [];
 	const answerKey: { level:number, title: string, answers: string[] }[] = [];
@@ -50,4 +53,4 @@ async function useGetTodaysPuzzle(clientDate: string) {
 	return { date, initialBoard, answerKey }
 }
 
-export default useGetTodaysPuzzle;
+export default useGetPuzzleById;

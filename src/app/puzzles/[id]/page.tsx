@@ -1,11 +1,12 @@
 import PuzzleWrapper from "@/app/components/PuzzleWrapper";
-import useGetPuzzle from "@/app/hooks/use-get-puzzle";
+
+import useGetPuzzle from '@/app/hooks/use-get-puzzle';
 
 async function PuzzlesPage({ params }: { params: { id: string } }) {
   
-  const puzzleId = params.id;
+  const puzzleId = params.id
   const { date, initialBoard, answerKey } = await useGetPuzzle(puzzleId);
-  
+
   return (
     <>
       <main className="flex flex-col grow h-full">

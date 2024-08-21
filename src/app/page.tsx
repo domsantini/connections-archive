@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 export const dynamic = 'force-dynamic'
+
 import Loader from '@/app/components/Loader'
 import PuzzleWrapper from "@/app/components/PuzzleWrapper";
 
@@ -25,11 +26,7 @@ function Home() {
   React.useEffect(() => {
     const clientDate = moment().format('YYYY-MM-DD')
     
-    async function FetchData(clientDate: string) {
-      console.log('before delay')
-      await new Promise(resolve => setTimeout(resolve, 5 * 1000))
-      console.log('post delay')
-      
+    async function FetchData(clientDate: string) {      
       try {  
         const data = await useGetTodaysPuzzle(clientDate)
         setPuzzleData(data)
@@ -43,7 +40,6 @@ function Home() {
   
   const puzzleId = useGetPuzzleId();
 
-  
   return (
     <>
       <main className="flex flex-col grow h-full">
