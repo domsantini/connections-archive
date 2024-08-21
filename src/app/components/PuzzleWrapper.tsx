@@ -32,6 +32,8 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   
   React.useEffect(() => {
     async function runAnswerRevealAnimation() {
+      await new Promise(resolve => setTimeout(resolve, 2 * 1000)); 
+      
       setCurrentGuess([])
       
       for (const [index, category] of remainingAnswers.entries()) {
