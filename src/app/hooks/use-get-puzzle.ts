@@ -45,6 +45,10 @@ async function useGetPuzzle(puzzleId?: string) {
 		answerKey.push({ level: index, title, answers })
 	})
 	
+	answerKey.forEach(category => {
+		category.answers.sort()
+	})
+	
 	initialTempBoard.sort((a, b) => a.position - b.position)
 	const initialBoard = initialTempBoard.map(({ content }) => content)
 	

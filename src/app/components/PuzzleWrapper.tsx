@@ -29,6 +29,7 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   const [remainingAnswers, setRemainingAnswers] = useLocalStorage(`${storageKeyPrefix}-remainingAnswers`, answerKey)
     
   const { notifications, handleSettingNotifications } = useNotificationContext()
+
   
   React.useEffect(() => {
     async function runAnswerRevealAnimation() {
@@ -95,6 +96,8 @@ function PuzzleWrapper({ id, date, initialBoard, answerKey }: { id: string, date
   
   function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
+    
+    console.log({ currentGuess, answerKey })
     
     function checkAnswer(currentGuess: string[], answerKey: { level: number, title: string, answers: string[]}[]) {
       let maxCorrect = 0;
