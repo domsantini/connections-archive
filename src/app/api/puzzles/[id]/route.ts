@@ -1,5 +1,6 @@
 import { getPuzzleById } from '../../../utils/puzzle'
 export const dynamic = 'force-dynamic' // defaults to auto
+export const runtime = 'edge';
 
 export async function GET(req: Request, {params}: {params: { id: string }}) {
     
