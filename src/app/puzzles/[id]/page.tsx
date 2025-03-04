@@ -1,5 +1,3 @@
-export const runtime = 'edge';
-
 import PuzzleWrapper from "@/app/components/PuzzleWrapper";
 
 import useGetPuzzle from '@/app/hooks/use-get-puzzle';
